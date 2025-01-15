@@ -1,16 +1,37 @@
 package org.example;
 
-public class Logger {
-    private String name;
-    private LogLevel level;
+import org.example.appender.Appender;
+import org.example.appender.ConsoleAppender;
 
-    public Logger(String name, LogLevel level) {
-        this.name = name;
-        this.level = level;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Logger {
+    private final List<Appender> appenders;
+
+    public Logger() {
+        appenders = new ArrayList<>();
     }
 
-    public void log(LogLevel level, String message) {
-        // Реализация логгирования
+    public List<Appender> getAppenders() {
+        return appenders;
+    }
+
+    public void addAppender(Appender appender) {
+        appenders.add(appender);
+    }
+
+    private void log(LogLevel level, String message) {
+        if (appenders.isEmpty()) {
+            appenders.add(new ConsoleAppender());
+        }
+        for (Appender appender : appenders) {
+            if (level.ordinal() >= appender.getFrom().ordinal()
+                    && level.ordinal() <= appender.getTo().ordinal()) {
+                String formattedMessage = appender.formattingMessage(level, message);
+                appender.append(formattedMessage);
+            }
+        }
     }
 
     public void debug(String message) {
