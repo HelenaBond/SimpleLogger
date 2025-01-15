@@ -1,8 +1,8 @@
 package org.example;
 
 public enum LogLevel {
-    DEBUG,
     INFO,
+    DEBUG,
     WARN,
-    ERROR;
+    ERROR
 }
