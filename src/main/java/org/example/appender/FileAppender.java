@@ -7,7 +7,7 @@ import java.nio.file.StandardOpenOption;
 
 public class FileAppender extends AbstractAppender {
 
-    private String filePath;
+    private String filePath = "log.txt";
 
     public FileAppender() {}
 

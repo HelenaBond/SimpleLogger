@@ -1,12 +1,17 @@
 package org.example.appender;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.example.LogLevel;
+import org.example.jsonDeserializer.DateTimeFormatterDeserializer;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class AbstractAppender implements Appender {
 
+    @JsonDeserialize(using = DateTimeFormatterDeserializer.class)
     private DateTimeFormatter dateTimeFormat;
     private String messageFormat;
     private LogLevel from;

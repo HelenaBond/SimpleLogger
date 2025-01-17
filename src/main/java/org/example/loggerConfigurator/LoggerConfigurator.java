@@ -1,4 +1,4 @@
-package org.example.LoggerConfigurator;
+package org.example.loggerConfigurator;
 
 import org.example.Logger;
 

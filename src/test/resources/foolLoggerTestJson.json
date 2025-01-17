@@ -1,0 +1,17 @@
+{
+  "appenders": [
+    {
+      "type": "file",
+      "dateTimeFormat": "yyyy-MM-dd HH-mm-ss",
+      "messageFormat": "%s %s %s",
+      "from": "DEBUG",
+      "to": "WARN"
+    },
+    {
+      "type": "console",
+      "dateTimeFormat": "yyyy MM dd HH-mm-ss",
+      "messageFormat": "%s %s %s",
+      "from": "INFO"
+    }
+  ]
+}

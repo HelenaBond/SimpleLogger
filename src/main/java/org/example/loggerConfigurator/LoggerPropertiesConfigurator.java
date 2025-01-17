@@ -1,4 +1,4 @@
-package org.example.LoggerConfigurator;
+package org.example.loggerConfigurator;
 
 import org.example.Logger;
 import org.example.appender.Appender;
@@ -8,6 +8,8 @@ import org.example.appenderConfigurator.FileAppenderPropertiesConfigurator;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -36,7 +38,7 @@ public class LoggerPropertiesConfigurator implements LoggerConfigurator {
         for (String appenderName : appenders) {
                 String prefix = "log.appender.configurator.%s".formatted(appenderName);
                 String type = properties.getProperty("%s.type".formatted(prefix));
-                AppenderPropertiesConfigurator configurator = appenderConfigurators.get(type.toLowerCase());
+                AppenderPropertiesConfigurator configurator = appenderConfigurators.get(type);
                 if (configurator == null) {
                     System.err.println("Unknown appender type: " + type);
                     continue;
@@ -54,9 +56,7 @@ public class LoggerPropertiesConfigurator implements LoggerConfigurator {
 
     private Properties readProperties() {
         Properties properties = new Properties();
-        try (InputStream input = LoggerPropertiesConfigurator.class
-                .getClassLoader()
-                .getResourceAsStream(pathToSettings)) {
+        try (InputStream input = Files.newInputStream(Paths.get(pathToSettings))) {
             properties.load(input);
         } catch (IOException e) {
             e.printStackTrace();
