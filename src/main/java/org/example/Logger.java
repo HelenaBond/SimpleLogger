@@ -3,14 +3,14 @@ package org.example;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.example.appender.Appender;
 import org.example.appender.ConsoleAppender;
-import org.example.jsonDeserializer.AppenderListDeserializer;
+import org.example.jsonDeserializer.AppenderListJsonDeserializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Logger {
 
-    @JsonDeserialize(using = AppenderListDeserializer.class)
+    @JsonDeserialize(using = AppenderListJsonDeserializer.class)
     private final List<Appender> appenders;
 
     public Logger() {
