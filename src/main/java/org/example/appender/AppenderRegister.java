@@ -15,10 +15,10 @@ public class AppenderRegister {
         if (appenderTypes.containsKey(type)) {
             throw new IllegalArgumentException("Appender type already registered: " + type);
         }
-        appenderTypes.put(type.toLowerCase(), appender);
+        appenderTypes.put(type, appender);
     }
 
     public Class<? extends Appender> getAppenderType(String type) {
-        return appenderTypes.get(type.toLowerCase());
+        return appenderTypes.get(type);
     }
 }

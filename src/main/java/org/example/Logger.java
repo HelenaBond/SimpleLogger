@@ -1,12 +1,15 @@
 package org.example;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.example.appender.Appender;
-import org.example.appender.ConsoleAppender;
+import org.example.jsonDeserializer.AppenderListJsonDeserializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Logger {
+
+    @JsonDeserialize(using = AppenderListJsonDeserializer.class)
     private final List<Appender> appenders;
 
     public Logger() {
@@ -22,9 +25,6 @@ public class Logger {
     }
 
     private void log(LogLevel level, String message) {
-        if (appenders.isEmpty()) {
-            appenders.add(new ConsoleAppender());
-        }
         for (Appender appender : appenders) {
             if (level.ordinal() >= appender.getFrom().ordinal()
                     && level.ordinal() <= appender.getTo().ordinal()) {

@@ -3,6 +3,7 @@ package org.example.loggerConfigurator;
 import org.example.Logger;
 import org.example.appender.Appender;
 import org.example.appender.AppenderRegister;
+import org.example.appender.ConsoleAppender;
 import org.example.propertiesParser.DeserializerRegister;
 import org.example.propertiesParser.deserializer.PropertiesDeserializer;
 import org.example.propertiesParser.deserializer.PropsDeserializer;
@@ -13,6 +14,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Properties;
 
 public class LoggerPropertiesConfigurator extends AbstractConfigurator {
@@ -51,6 +53,10 @@ public class LoggerPropertiesConfigurator extends AbstractConfigurator {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        List<Appender> appenderList = logger.getAppenders();
+        if (appenderList.isEmpty()) {
+            appenderList.add(new ConsoleAppender());
         }
         return logger;
     }
